@@ -13,7 +13,7 @@ console.log( request.cookies);
 
   const { pathname } = request.nextUrl;
   
-  if (!sessionToken ) {
+  if (!sessionToken?.value ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
