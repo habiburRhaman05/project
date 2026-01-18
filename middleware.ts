@@ -3,8 +3,10 @@ import { NextResponse } from 'next/server';
 
 
 export default async function middleware(request: NextRequest) {
+console.log( request.cookies);
 
   const sessionToken =
+  request.cookies.get("better-auth.state") ||
   request.cookies.get("__Secure-better-auth.session_token") || 
   request.cookies.get("better-auth.session_token") || 
                        request.cookies.get("__better_auth_session"); // Production এ এই নাম হতে পারে
@@ -15,7 +17,7 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
-  if (sessionToken && (pathname === "/sign-in" || pathname === "/sign-up")) {
+  if (sessionToken.value && (pathname === "/sign-in" || pathname === "/sign-up")) {
     return NextResponse.redirect(new URL("/profile", request.url));
   }
 

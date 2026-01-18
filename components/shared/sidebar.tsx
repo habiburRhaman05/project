@@ -47,7 +47,7 @@ export function AppSidebar() {
   const { data, isPending } = useSession();
 
   // For modern aesthetics, we use a role-based split
-  const userRole = data?.user?.role || "USER";
+  const userRole = data?.user?.role  || "USER";
   const menuItems = userRole === "ADMIN" ? MENU_CONFIG.ADMIN : MENU_CONFIG.USER;
 
   return (
