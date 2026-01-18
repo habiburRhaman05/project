@@ -48,7 +48,7 @@ export default function SignUpForm() {
       fetchOptions: {
         onSuccess: () => {
           toast.success("Account created successfully! Redirecting...");
-          router.push("/account/profile");
+          router.push("/profile");
         },
         onError: (ctx) => {
           // সার্ভার থেকে আসা স্পেসিফিক এরর মেসেজ দেখাবে

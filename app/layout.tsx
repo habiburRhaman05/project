@@ -5,7 +5,7 @@ import Header from "@/components/shared/Header";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import QueryProvider from "@/providers/QueryProvider";
 import { SidebarProvider } from "@/components/ui/sidebar";
-
+import { Toaster } from "@/components/ui/sonner"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -40,6 +40,7 @@ export default function RootLayout({
       >
         <QueryProvider>
           <SidebarProvider>
+             <Toaster richColors/>
               {children}
           </SidebarProvider>
         </QueryProvider>

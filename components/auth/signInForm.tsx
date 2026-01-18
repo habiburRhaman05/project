@@ -28,7 +28,7 @@ export default function SignInForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors,isSubmitting },
   } = useForm({
     resolver:zodResolver(signInSchema)
   })
@@ -42,8 +42,7 @@ export default function SignInForm() {
 
    const onSubmit = async (data:SignInValues) => {
   
-    // await signInMutation.mutateAsync(data)
-    //  router.push("/account/profile")
+
 
     await authClient.signIn.email({
       email: data.email,
@@ -51,7 +50,7 @@ export default function SignInForm() {
       fetchOptions: {
         onSuccess: () => {
           toast.success("Login Successful!");
-          router.push("/feed");
+          router.push("/profile");
         },
         onError: (ctx) => {
           toast.error(ctx.error.message || "Login failed");
@@ -88,7 +87,7 @@ export default function SignInForm() {
               }
             </div>
             <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all active:scale-95">
-             {signInMutation.isPending ? <Loader2 className='animate-spin'/> :  "Sign in"}
+             {isSubmitting ? <Loader2 className='animate-spin'/> :  "Sign in"}
             </button>
           </form>
               
