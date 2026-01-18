@@ -47,8 +47,8 @@ export function AppSidebar() {
   const { data, isPending } = useSession();
 
   // For modern aesthetics, we use a role-based split
-  const userRole = data?.user?.role  || "USER";
-  const menuItems = userRole === "ADMIN" ? MENU_CONFIG.ADMIN : MENU_CONFIG.USER;
+  // const userRole = data?.user?.role  || "USER";
+  const menuItems =  MENU_CONFIG.USER;
 
   return (
     <Sidebar 
@@ -58,7 +58,7 @@ export function AppSidebar() {
       <SidebarContent className="bg-[#1c1c21] text-zinc-400">
         <SidebarGroup className="px-4 py-6">
           <SidebarGroupLabel className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-500 px-2 mb-4">
-            {userRole === "ADMIN" ? "Administrator" : "Menu"}
+            {/* {userRole === "ADMIN" ? "Administrator" : "Menu"} */}
           </SidebarGroupLabel>
 
           <SidebarMenu className="gap-1.5">
