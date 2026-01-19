@@ -1,9 +1,9 @@
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 async function getUserSession() {
   try {
-    const headerList = await headers();
-    const cookie = headerList.get("cookie"); // কুকিটি আলাদাভাবে নিন
+  
+    const cookie = (await cookies()).toString()// কুকিটি আলাদাভাবে নিন
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/get-session`, {
       method: "GET",
@@ -16,7 +16,7 @@ async function getUserSession() {
 
     if (!response.ok) return null;
     const data = await response.json();
-    return data.user;
+    return data
   } catch (error) {
     console.error("Session Fetch Error:", error);
     return null;
