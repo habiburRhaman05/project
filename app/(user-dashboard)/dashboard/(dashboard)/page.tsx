@@ -1,9 +1,7 @@
 import React from 'react'
 
 const page = () => {
-  return (
-    <div>profile page</div>
-  )
+  return null
 }
 
 export default page

@@ -1,0 +1,13 @@
+// import { LatestUsersWidget } from '@/components/pages/admin-dashboard/usersList'
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>
+      users list
+        {/* <LatestUsersWidget/> */}
+    </div>
+  )
+}
+
+export default page
