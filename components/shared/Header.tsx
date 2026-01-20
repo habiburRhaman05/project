@@ -9,6 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import SwitchToBlogBtn from "./SwitchToBlogBtn";
 
 export default function Header() {
   const { 
@@ -59,6 +60,9 @@ export default function Header() {
             )}
           </Button>
         </div>
+
+
+<SwitchToBlogBtn/>
 
         {/* Auth State Management */}
         <div className="pl-1 sm:pl-2 min-w-[40px] flex justify-center">
