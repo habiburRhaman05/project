@@ -3,10 +3,11 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>page
+    <div>
+      My Posts widget
 
       <h1>
-        <Link href={"/dashboard/users"}>go users</Link>
+        <Link href={"/dashboard/posts"}>View all</Link>
       </h1>
     </div>
   )

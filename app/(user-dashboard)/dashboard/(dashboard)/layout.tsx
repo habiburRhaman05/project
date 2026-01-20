@@ -1,13 +1,16 @@
 import React from 'react'
 
-const layout = ({children,users}:{
+const layout = ({children,posts}:{
     children:React.ReactNode
-    users:React.ReactNode
+    posts:React.ReactNode
 }) => {
   return (
     <div>
-        {/* {children} */}
-        {users}
+        {children}
+        <div className="flex gap-8">
+        
+        {posts}
+        </div>
     </div>
   )
 }

@@ -26,7 +26,7 @@ export type Comment = {
   replies?: Comment[];
 };
 
-export type Feed = {
+export type Post = {
   id: number;
   title: string;
   content: string;

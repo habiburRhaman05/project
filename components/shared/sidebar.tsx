@@ -1,111 +1,210 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { 
-  LayoutDashboard, 
-  FileText, 
-  Bookmark, 
-  User2, 
-  ShieldCheck, 
-  Users, 
+import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import {
+  LayoutDashboard,
+  FileText,
+  PenSquare,
+  User,
   Settings,
-  Loader2,
-  Compass
-} from "lucide-react";
+  LogOut,
+  Users,
+  Shield,
+  UserCircle,
+} from "lucide-react"
+
 import {
   Sidebar,
   SidebarContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarGroup,
   SidebarGroupLabel,
-} from "@/components/ui/sidebar";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
-import { cn } from "@/lib/utils";
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+} from "@/components/ui/sidebar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
-const MENU_CONFIG = {
-  USER: [
-    { name: "Feed", icon: LayoutDashboard, href: "/feed" },
-    { name: "Profile", icon: User2, href: "/account/profile" },
-    { name: "My Posts", icon: FileText, href: "/my-posts" },
-    { name: "Reading List", icon: Bookmark, href: "/reading-list" },
-  ],
-  ADMIN: [
-    { name: "Overview", icon: ShieldCheck, href: "/admin-dashboard" },
-    { name: "Manage Users", icon: Users, href: "/admin-dashboard/users" },
-    { name: "Manage Posts", icon: FileText, href: "/admin-dashboard/posts" },
-    { name: "Manage Comments", icon: Settings, href: "/admin-dashboard/settings" },
-    { name: "Explore", icon: Compass, href: "/explore" },
-  ],
-};
+
+const role: "admin" | "user" = "admin"
+
+const userProfile = {
+  name: "Habib",
+  email: "habib@email.com",
+  avatar: "/avatar.png",
+}
+
+const userItems = [
+  { title: "Overview", href: "/dashboard", icon: LayoutDashboard },
+  { title: "My Posts", href: "/dashboard/posts", icon: FileText },
+  { title: "Create Post", href: "/dashboard/create", icon: PenSquare },
+]
+
+const adminItems = [
+  { title: "Admin Dashboard", href: "/admin", icon: Shield },
+  { title: "Manage Users", href: "/admin/users", icon: Users },
+]
+
+const commonItems = [
+  { title: "Profile", href: "/profile", icon: UserCircle },
+  { title: "Settings", href: "/dashboard/settings", icon: Settings },
+]
+
+/* ------------------------------------------------------------------ */
 
 export function AppSidebar() {
-  const pathname = usePathname();
-  const { data, isPending } = useSession();
+  const pathname = usePathname()
 
-  // For modern aesthetics, we use a role-based split
-  // const userRole = data?.user?.role  || "USER";
-  const menuItems =  MENU_CONFIG.USER;
+  const isActive = (href: string) =>
+    href === "/dashboard"
+      ? pathname === "/dashboard"
+      : pathname.startsWith(href)
+
+  const handleLogout = () => {
+    // toast({
+    //   title: "Logged out",
+    //   description: "You have been logged out successfully.",
+    // })
+  }
 
   return (
-    <Sidebar 
-      collapsible="offcanvas" 
-      className="top-16 lg:block hidden h-[calc(100vh-64px)] border-r border-zinc-800/50"
+    <Sidebar
+      collapsible="offcanvas"
+      className="top-16 hidden h-[calc(100vh-64px)] border-r border-border lg:block"
     >
-      <SidebarContent className="bg-[#1c1c21] text-zinc-400">
-        <SidebarGroup className="px-4 py-6">
-          <SidebarGroupLabel className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-500 px-2 mb-4">
-            {/* {userRole === "ADMIN" ? "Administrator" : "Menu"} */}
+      <SidebarContent className="bg-background text-foreground">
+  
+        <SidebarGroup className="px-4 py-2">
+          <SidebarGroupLabel className="mb-3 px-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            Dashboard
           </SidebarGroupLabel>
 
           <SidebarMenu className="gap-1.5">
-            {isPending ? (
-              <div className="flex items-center justify-center py-10">
-                <Loader2 className="w-5 h-5 animate-spin text-zinc-600" />
-              </div>
-            ) : (
-              menuItems.map((item) => {
-                const isActive = pathname === item.href;
+            {userItems.map((item) => {
+              const active = isActive(item.href)
+
+              return (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={active}
+                    className={cn(
+                      "relative flex items-center gap-3 rounded-md px-3 py-5 transition-all",
+                      "hover:bg-muted hover:text-foreground",
+                      active &&
+                        "bg-muted text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                    )}
+                  >
+                    <Link href={item.href}>
+                      {active && (
+                        <span className="absolute left-0 h-5 w-1 rounded-full bg-primary" />
+                      )}
+                      <item.icon className="h-[18px] w-[18px]" />
+                      <span className="text-sm font-medium">
+                        {item.title}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        {/* ---------------------------------------------------- */}
+        {/* Admin Section */}
+        {/* ---------------------------------------------------- */}
+        {/* {role === "admin" && (
+          <SidebarGroup className="px-4 pb-6">
+            <SidebarGroupLabel className="mb-3 px-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              Admin
+            </SidebarGroupLabel>
+
+            <SidebarMenu className="gap-1.5">
+              {adminItems.map((item) => {
+                const active = isActive(item.href)
 
                 return (
-                  <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton 
-                      asChild 
-                      isActive={isActive} 
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={active}
                       className={cn(
-                        "relative group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300",
-                        "hover:bg-zinc-800/50 hover:text-zinc-100",
-                        isActive 
-                          ? "bg-zinc-800/80 text-zinc-100 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]" 
-                          : "bg-transparent text-zinc-400"
+                        "relative flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all",
+                        "hover:bg-muted hover:text-foreground",
+                        active && "bg-muted text-foreground"
                       )}
                     >
-                      <Link href={item.href} className="w-full flex items-center gap-3">
-                        {/* Vertical Indicator on Active */}
-                        {isActive && (
-                          <div className="absolute left-0 w-1 h-5 bg-indigo-500 rounded-full" />
+                      <Link href={item.href}>
+                        {active && (
+                          <span className="absolute left-0 h-5 w-1 rounded-full bg-primary" />
                         )}
-                        
-                        <item.icon className={cn(
-                          "w-[18px] h-[18px] transition-transform duration-300 group-hover:scale-110",
-                          isActive ? "text-indigo-400" : "text-zinc-500"
-                        )} />
-                        
-                        <span className="text-sm font-medium tracking-tight">
-                          {item.name}
+                        <item.icon className="h-[18px] w-[18px]" />
+                        <span className="text-sm font-medium">
+                          {item.title}
                         </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                );
-              })
-            )}
+                )
+              })}
+            </SidebarMenu>
+          </SidebarGroup>
+        )} */}
+
+        {/* ---------------------------------------------------- */}
+        {/* Settings Section */}
+        {/* ---------------------------------------------------- */}
+        <SidebarGroup className="px-4">
+          <SidebarGroupLabel className="mb-3 px-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            Settings
+          </SidebarGroupLabel>
+
+          <SidebarMenu className="gap-1.5">
+            {commonItems.map((item) => {
+              const active = isActive(item.href)
+
+              return (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={active}
+                    className={cn(
+                      "flex items-center gap-3 rounded-md px-3 py-5 transition-all",
+                      "hover:bg-muted hover:text-foreground",
+                      active && "bg-muted text-foreground"
+                    )}
+                  >
+                    <Link href={item.href}>
+                      <item.icon className="h-[18px] w-[18px]" />
+                      <span className="text-sm font-medium">
+                        {item.title}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
           </SidebarMenu>
         </SidebarGroup>
+
+        {/* ---------------------------------------------------- */}
+        {/* Logout */}
+        {/* ---------------------------------------------------- */}
+        <div className="mt-auto border-t border-border p-4">
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-muted-foreground hover:text-destructive"
+            onClick={handleLogout}
+          >
+            <LogOut className="h-5 w-5" />
+            Logout
+          </Button>
+        </div>
       </SidebarContent>
     </Sidebar>
-  );
+  )
 }

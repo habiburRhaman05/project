@@ -22,7 +22,7 @@ export default function Header() {
       
       {/* Left Side: Sidebar Toggle & Logo */}
       <div className="flex items-center gap-4">
-        <SidebarTrigger className="text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors rounded-xl" />
+        <SidebarTrigger className="text-zinc-600 cursor-pointer dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors rounded-xl" />
         
         <Link href="/feed">
         <div className="flex items-center gap-2 group">
