@@ -3,9 +3,8 @@ import Header from "@/components/shared/Header"
 import {AppSidebar} from "@/components/shared/sidebar"
 import { LayoutDashboard, Settings, Shield, Users } from "lucide-react"
 
-export default function AdminDashboardLayout({children,users}:{
+export default function AdminDashboardLayout({children}:{
     children:React.ReactNode
-    users:React.ReactNode
 
 }){
  
