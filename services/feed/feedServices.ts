@@ -1,9 +1,9 @@
 
 import { httpRequest } from "@/config/axios/axios";
-import { Feed } from "@/types/feed";
+import { Post } from "@/types/feed";
 import axios from "axios";
 
-const getAllFeed = async ():Promise<Feed [] | any> =>{
+const getAllFeed = async ():Promise<Post [] | any> =>{
   try {
      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/post/all?search=next.js`,{
       next:{
@@ -21,7 +21,7 @@ const getAllFeed = async ():Promise<Feed [] | any> =>{
   return []
 }
 
-const getSearchResult = async (query:string):Promise<Feed [] | any> =>{
+const getSearchResult = async (query:string):Promise<Post [] | any> =>{
   await new Promise((reslove)=> setTimeout(reslove,1000));
   try {
      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/post/all?search=${query}`,{
@@ -41,7 +41,7 @@ const getSearchResult = async (query:string):Promise<Feed [] | any> =>{
   return []
 }
 
-const getFeedDetailsBySlug = async (slug:string):Promise<Feed | any> =>{
+const getFeedDetailsBySlug = async (slug:string):Promise<Post | any> =>{
   try {
      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/post/${slug}`,{
      
