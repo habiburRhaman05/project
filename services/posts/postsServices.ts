@@ -3,11 +3,12 @@ import { httpRequest } from "@/config/axios/axios";
 import { Post } from "@/types/feed";
 import axios from "axios";
 
-const getAllFeed = async ():Promise<Post [] | any> =>{
+const getAllPosts = async ():Promise<Post [] | any> =>{
   try {
      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/post/all?search=next.js`,{
       next:{
-        tags:["blog"]
+        tags:["blog"],
+        revalidate:30
       }
      })
    
@@ -60,4 +61,7 @@ const getFeedDetailsBySlug = async (slug:string):Promise<Post | any> =>{
 
 
 
-export const feedServices = {getAllFeed,getFeedDetailsBySlug,getSearchResult}
+
+
+
+export const postServices = {getAllPosts,getFeedDetailsBySlug,getSearchResult}

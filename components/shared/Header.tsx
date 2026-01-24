@@ -10,6 +10,7 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import SwitchToBlogBtn from "./SwitchToBlogBtn";
+import { useParams, usePathname } from "next/navigation";
 
 export default function Header() {
   const { 
@@ -18,13 +19,22 @@ export default function Header() {
     error 
   } = authClient.useSession();
 
+  const currentPath = usePathname()
+  const isSideTrgiggerShow =   currentPath.includes("/dashboard") || currentPath.includes("/admin/dashboard")
+
   return (
     <header className="w-full h-16 border-b border-zinc-200 dark:border-zinc-800 bg-[#fbfbfb]/80 dark:bg-zinc-800/50 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-50">
       
       {/* Left Side: Sidebar Toggle & Logo */}
       <div className="flex items-center gap-4">
-        <SidebarTrigger className="text-zinc-600 cursor-pointer dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors rounded-xl" />
-        
+
+{
+
+    isSideTrgiggerShow && <SidebarTrigger className="text-zinc-600 cursor-pointer dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors rounded-xl" />
+  
+       
+
+}        
         <Link href="/feed">
         <div className="flex items-center gap-2 group">
             <Command className="w-6 h-6 text-indigo-600 group-hover:rotate-180 transition-transform duration-500" />
@@ -50,15 +60,7 @@ export default function Header() {
 
           <ToggleTheme />
 
-          <Button variant="ghost" size="icon" className="relative text-zinc-600 dark:text-zinc-400 rounded-xl hover:bg-zinc-200 bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-zinc-900">
-            <Bell className="h-5 w-5" />
-            {!isPending && !error && (
-              <span className="absolute top-2.5 right-2.5 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
-              </span>
-            )}
-          </Button>
+         
         </div>
 
 

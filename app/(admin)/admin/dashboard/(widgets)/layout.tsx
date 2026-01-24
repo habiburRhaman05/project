@@ -1,15 +1,15 @@
 import React from 'react'
 
-const layout = ({children,posts}:{
+const layout = ({children,latestPosts}:{
     children:React.ReactNode
-    posts:React.ReactNode
+    latestPosts:React.ReactNode
 }) => {
   return (
     <div>
         {children}
         <div className="flex gap-8">
         
-        {posts}
+        {latestPosts}
         </div>
     </div>
   )

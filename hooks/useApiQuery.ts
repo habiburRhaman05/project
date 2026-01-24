@@ -23,6 +23,9 @@ export function useApiQuery<T>(
         throw error;
       }
     },
+    
     ...options,
   });
 }
+
+

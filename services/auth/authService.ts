@@ -13,9 +13,16 @@ async function getUserSession() {
       },
       cache: "no-store",
     });
+console.log("response",response);
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.log("not ok");
+      
+      return null
+    }
     const data = await response.json();
+    console.log(data);
+    
     return data
   } catch (error) {
     console.error("Session Fetch Error:", error);

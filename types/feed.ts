@@ -4,6 +4,8 @@ export enum PostStatus {
   DRAFT = "DRAFT",
   PUBLISHED = "PUBLISHED",
   ARCHIVED = "ARCHIVED",
+  PENDING = "PENDING",
+  REJECTED = "REJECTED",
 }
 
 export enum CommentStatus {

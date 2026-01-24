@@ -4,10 +4,10 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      My Posts widget
+   Latest posts 
 
       <h1>
-        <Link href={"/dashboard/posts"}>View all</Link>
+        <Link href={"/admin/dashboard/manage-posts"}>View all</Link>
       </h1>
     </div>
   )
