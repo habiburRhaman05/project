@@ -11,7 +11,7 @@ export default async function UserDashboardLayout({ children }: {
 
 }) {
 
-    const {user} = await authServices.getUserSession();
+    const user = await authServices.getUserSession();
 console.log(user);
 
     if(!user){
