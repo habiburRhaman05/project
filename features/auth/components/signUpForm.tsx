@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react"; // লোডার আইকন
 import SocialLoginProvider from './SocialLoginProvider';
+import { useAuthHandlers } from '../auth-handler';
 
 const signUpSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -24,7 +25,7 @@ type SignUpValues = z.infer<typeof signUpSchema>;
 
 export default function SignUpForm() {
   const router = useRouter();
-  
+   const {signUp} = useAuthHandlers()
   const {
     register,
     handleSubmit,
@@ -41,21 +42,7 @@ export default function SignUpForm() {
 
   // ১. ইমেইল সাইন-আপ লজিক
   const onSubmit = async (data: SignUpValues) => {
-    await authClient.signUp.email({
-      email: data.email,
-      password: data.password,
-      name: data.name,
-      fetchOptions: {
-        onSuccess: () => {
-          toast.success("Account created successfully! Redirecting...");
-          router.push("/profile");
-        },
-        onError: (ctx) => {
-          // সার্ভার থেকে আসা স্পেসিফিক এরর মেসেজ দেখাবে
-          toast.error(ctx.error.message || "Something went wrong. Please try again.");
-        },
-      },
-    });
+  await signUp(data)
   };
 
   // ২. সোশ্যাল সাইন-আপ লজিক (Google/GitHub)

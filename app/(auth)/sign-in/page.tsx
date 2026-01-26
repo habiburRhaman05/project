@@ -1,5 +1,5 @@
 
-import SignInForm from '@/components/auth/signInForm';
+import SignInForm from '@/features/auth/components/signInForm';
 import Link from 'next/link';
 
 export default function SignIn() {
@@ -21,8 +21,8 @@ export default function SignIn() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white dark:bg-zinc-900 py-8 px-4 shadow-xl border border-zinc-200 dark:border-zinc-800 sm:rounded-2xl sm:px-10">
-          
-          <SignInForm/>
+
+<SignInForm/>
 
 
         </div>

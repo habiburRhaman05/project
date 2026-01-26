@@ -19,8 +19,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import LogoutButton from '../auth/logoutButton';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
+import LogoutButton from './logoutButton';
+
 
 const ProfileAvater = ({user}:{user:any}) => {
     

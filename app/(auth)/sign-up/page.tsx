@@ -1,5 +1,5 @@
 
-import SignUpForm from '@/components/auth/signUpForm';
+import SignUpForm from '@/features/auth/components/signUpForm';
 
 export default function SignUp() {
 
